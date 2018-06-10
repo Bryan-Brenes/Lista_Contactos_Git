@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="libro_contactos.FXMLPantallaPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="960.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="libro_contactos.FXMLPantallaPrincipalController">
    <children>
       <MenuBar fx:id="menubar" prefHeight="29.0" prefWidth="960.0">
         <menus>
@@ -25,6 +30,32 @@
           </Menu>
         </menus>
       </MenuBar>
-      <JFXListView layoutX="97.0" layoutY="165.0" prefHeight="393.0" prefWidth="766.0" />
+      <JFXListView fx:id="listView" layoutX="97.0" layoutY="165.0" prefHeight="376.0" prefWidth="766.0" />
+      <JFXButton fx:id="nuevo_btn" buttonType="RAISED" layoutX="722.0" layoutY="112.0" prefHeight="36.0" prefWidth="141.0" text="Agregar contacto">
+         <graphic>
+            <FontAwesomeIconView glyphName="USER_PLUS" size="16" />
+         </graphic>
+      </JFXButton>
+      <JFXTextField layoutX="97.0" layoutY="112.0" prefHeight="36.0" prefWidth="566.0" promptText="Buscar..." />
+      <Label layoutX="97.0" layoutY="67.0" text="Lista de contactos">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="borrar_btn" buttonType="RAISED" layoutX="762.0" layoutY="555.0" prefHeight="36.0" prefWidth="101.0" text="Eliminar">
+         <graphic>
+            <FontAwesomeIconView glyphName="TRASH" size="16" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="editar_btn" buttonType="RAISED" layoutX="644.0" layoutY="555.0" prefHeight="36.0" prefWidth="101.0" text="Editar">
+         <graphic>
+            <FontAwesomeIconView glyphName="EDIT" size="16" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="ver_btn1" buttonType="RAISED" layoutX="558.0" layoutY="555.0" prefHeight="36.0" prefWidth="69.0" text="Ver">
+         <graphic>
+            <FontAwesomeIconView glyphName="EYE" size="16" />
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>
