@@ -9,11 +9,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
@@ -31,6 +34,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -101,12 +105,18 @@ public class FXMLNuevoContactoController implements Initializable {
     
     private Contacto contacto;
     
+    private ArrayList<JFXButton> listabotones;
+    private ArrayList<JFXButton> listabotonesCorreo;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        listabotones = new ArrayList<>();
+        listabotonesCorreo = new ArrayList<>();
+        
         //Inicializacion del singleton de contactos
         contacto = new Contacto();
         
@@ -173,5 +183,119 @@ public class FXMLNuevoContactoController implements Initializable {
             }
         
     }
+    
+    public void añadirTelefono(){
+        
+        Vbox_telefonos.getChildren().add(crearHbox("telefono"));
+        System.out.println("Tamaño listabotones: " + listabotones.size());
+        
+        for (int i = 0; i < listabotones.size() - 1; i++) {
+            listabotones.get(i).setVisible(false);
+        }
+        
+        if (listabotones.size() == 1) {
+            FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_numero.getGraphic();
+            icon2.setIcon(FontAwesomeIcon.TRASH);
+            agregar_numero.setOnAction(e -> removerTelefono());
+        }
+    }
+    
+    public void removerTelefono(){
+        System.out.println("Tamaño listabotones: " + listabotones.size());
+        if (listabotones.size() == 1) {
+            Parent root = listabotones.get(0).getParent();
+            Vbox_telefonos.getChildren().remove(root);
+            listabotones.clear();
+            
+            FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_numero.getGraphic();
+            icon2.setIcon(FontAwesomeIcon.PLUS_CIRCLE);
+            agregar_numero.setOnAction(e -> añadirTelefono());
+        }else{
+            Parent root = listabotones.get(listabotones.size()-2).getParent();
+            Vbox_telefonos.getChildren().remove(root);
+            listabotones.remove(listabotones.size() - 2);
+        }
+    }
+    
+    public void añadirCorreo(){
+        Vbox_correos.getChildren().add(crearHbox("correo"));
+        
+        for (int i = 0; i < listabotonesCorreo.size() - 1; i++) {
+            listabotonesCorreo.get(i).setVisible(false);
+        }
+        
+        if (listabotonesCorreo.size() == 1) {
+            FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_correo.getGraphic();
+            icon2.setIcon(FontAwesomeIcon.TRASH);
+            agregar_correo.setOnAction(e -> removerCorreo());
+        }
+    }
+    
+    public void removerCorreo(){
+        if (listabotonesCorreo.size() == 1) {
+            Parent root = listabotonesCorreo.get(0).getParent();
+            Vbox_correos.getChildren().remove(root);
+            listabotonesCorreo.clear();
+            
+            FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_correo.getGraphic();
+            icon2.setIcon(FontAwesomeIcon.PLUS_CIRCLE);
+            agregar_correo.setOnAction(e -> añadirCorreo());
+        }else{
+            Parent root = listabotonesCorreo.get(listabotonesCorreo.size()-2).getParent();
+            Vbox_correos.getChildren().remove(root);
+            listabotonesCorreo.remove(listabotonesCorreo.size() - 2);
+        }
+    }
+    
+    public HBox crearHbox(String tipo){
+        HBox hbox = new HBox(25);
+        if (tipo.equals("correo")) {
+            JFXComboBox<Label> correos = new JFXComboBox();
+            correos.getItems().addAll(new Label("Personal"), new Label("Trabajo"),
+                new Label("Otro"));
+            correos.getSelectionModel().select(0);
+            correos.setPrefSize(USE_COMPUTED_SIZE, 26);
+            
+            JFXTextField correo_TextField = new JFXTextField();
+            correo_TextField.setPromptText("correo");
+            correo_TextField.setPrefSize(120, 26);
+            correo_TextField.setLabelFloat(true);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
+            icon.setSize("16");
+            JFXButton add_btn = new JFXButton("",icon);
+            listabotonesCorreo.add(add_btn);
+            add_btn.setOnAction(e-> añadirCorreo());
+            
+            hbox.setPrefWidth(100);
+            
+            hbox.getChildren().addAll(correos, correo_TextField, add_btn);
+        }else{
+            JFXComboBox<Label> telefonos = new JFXComboBox();
+            telefonos.getItems().addAll(new Label("Móvil"), new Label("Casa"),
+                new Label("Fax"), new Label("Trabajo"), new Label("Otro"));
+            telefonos.getSelectionModel().select(0);
+            telefonos.setPrefSize(USE_COMPUTED_SIZE, 26);
+            
+            JFXTextField telefono_TextField = new JFXTextField();
+            telefono_TextField.setPromptText("teléfono");
+            telefono_TextField.setPrefSize(120, 26);
+            telefono_TextField.setLabelFloat(true);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
+            icon.setSize("16");
+            JFXButton add_btn = new JFXButton("",icon);
+            /*FontAwesomeIconView icon2 = (FontAwesomeIconView)add_btn.getGraphic();
+            icon2.setIcon(FontAwesomeIcon.CHECK);*/
+            listabotones.add(add_btn);
+            add_btn.setOnAction(e-> añadirTelefono());
+            
+            hbox.setPrefWidth(100);
+            
+            hbox.getChildren().addAll(telefonos, telefono_TextField, add_btn);
+        }
+        return hbox;
+    }
+
     
 }
