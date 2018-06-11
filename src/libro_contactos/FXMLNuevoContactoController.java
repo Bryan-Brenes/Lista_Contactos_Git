@@ -107,6 +107,10 @@ public class FXMLNuevoContactoController implements Initializable {
     
     private ArrayList<JFXButton> listabotones;
     private ArrayList<JFXButton> listabotonesCorreo;
+    
+    /*Se debe crear variables globales para almacenar los elementos graficos de 
+    manera que se referencien mediante el id, sino con esa variable.
+    Esto porque los elementos no son fijos.*/
 
     /**
      * Initializes the controller class.
