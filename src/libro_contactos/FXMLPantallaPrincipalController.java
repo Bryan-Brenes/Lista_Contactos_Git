@@ -8,12 +8,18 @@ package libro_contactos;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -32,6 +38,8 @@ import javafx.stage.Stage;
  * @author bryan
  */
 public class FXMLPantallaPrincipalController implements Initializable {
+    
+    Contactos_singleton contactos;
 
     @FXML
     private MenuItem nuevo_btn_menu;
@@ -56,6 +64,8 @@ public class FXMLPantallaPrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        contactos = Contactos_singleton.getInstance();
+        
         listView.setExpanded(true);
         listView.depthProperty().set(2);
         
@@ -64,10 +74,11 @@ public class FXMLPantallaPrincipalController implements Initializable {
             try{
                 Label lbl = new Label("item " + i);
                 
-                Image imgen = new Image(new FileInputStream("/home/bryan/Imágenes/logos/153744-1.png"));
-                ImageView img = new ImageView(imgen);
-                img.setFitHeight(25);
-                img.setFitWidth(25);
+                //Image imgen = new Image(new FileInputStream("/home/bryan/Imágenes/logos/user"));
+                Image imagen = new Image("libro_contactos/user512.png");
+                ImageView img = new ImageView(imagen);
+                img.setFitHeight(40);
+                img.setFitWidth(40);
                 lbl.setGraphic(img);
                 //lbl.setGraphic(new ImageView(new Image("libro_contactos/user.png")));
                 listView.getItems().add(lbl);
@@ -77,6 +88,10 @@ public class FXMLPantallaPrincipalController implements Initializable {
                 System.out.println("no se encontro la imagen");
             }
         }
+        
+        
+        
+        
     }    //<>
     
     @FXML
@@ -85,6 +100,20 @@ public class FXMLPantallaPrincipalController implements Initializable {
         stage.close();
     }
     
+    public void eliminar(){
+        listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
+    }
+    
+    public void cambiarPantalla_a_agregar(){
+        Stage stage = (Stage) listView.getScene().getWindow();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLNuevoContacto.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLPantallaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     
 }

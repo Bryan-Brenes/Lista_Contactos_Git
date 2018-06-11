@@ -17,8 +17,11 @@ import javafx.stage.Stage;
  */
 public class Libro_contactos extends Application {
     
+    public static Stage window;
+    
     @Override
     public void start(Stage stage) throws Exception {
+        window = stage;
         Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaPrincipal.fxml"));
         
         Scene scene = new Scene(root);

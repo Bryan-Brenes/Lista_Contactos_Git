@@ -17,7 +17,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="_Menú">
             <items>
-                  <MenuItem fx:id="nuevo_btn_menu" mnemonicParsing="false" text="Nuevo contacto..." />
+                  <MenuItem fx:id="nuevo_btn_menu" mnemonicParsing="false" onAction="#cambiarPantalla_a_agregar" text="Nuevo contacto..." />
                   <MenuItem fx:id="guardar_btn_menu" mnemonicParsing="false" text="Guardar" />
               <MenuItem fx:id="salir_btn_menu" mnemonicParsing="false" onAction="#salir" text="Salir" />
             </items>
@@ -31,18 +31,18 @@
         </menus>
       </MenuBar>
       <JFXListView fx:id="listView" layoutX="97.0" layoutY="165.0" prefHeight="376.0" prefWidth="766.0" />
-      <JFXButton fx:id="nuevo_btn" buttonType="RAISED" layoutX="722.0" layoutY="112.0" prefHeight="36.0" prefWidth="141.0" text="Agregar contacto">
+      <JFXButton fx:id="nuevo_btn" buttonType="RAISED" layoutX="722.0" layoutY="112.0" onAction="#cambiarPantalla_a_agregar" prefHeight="36.0" prefWidth="141.0" text="Agregar contacto">
          <graphic>
             <FontAwesomeIconView glyphName="USER_PLUS" size="16" />
          </graphic>
       </JFXButton>
-      <JFXTextField layoutX="97.0" layoutY="112.0" prefHeight="36.0" prefWidth="566.0" promptText="Buscar..." />
+      <JFXTextField layoutX="97.0" layoutY="112.0" prefHeight="36.0" prefWidth="566.0" promptText="Buscar..." visible="false" />
       <Label layoutX="97.0" layoutY="67.0" text="Lista de contactos">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <JFXButton fx:id="borrar_btn" buttonType="RAISED" layoutX="762.0" layoutY="555.0" prefHeight="36.0" prefWidth="101.0" text="Eliminar">
+      <JFXButton fx:id="borrar_btn" buttonType="RAISED" layoutX="762.0" layoutY="555.0" onAction="#eliminar" prefHeight="36.0" prefWidth="101.0" text="Eliminar">
          <graphic>
             <FontAwesomeIconView glyphName="TRASH" size="16" />
          </graphic>
