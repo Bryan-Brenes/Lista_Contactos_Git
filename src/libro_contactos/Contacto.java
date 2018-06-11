@@ -34,7 +34,7 @@ public class Contacto {
     
     public Contacto(){
         this.nombre = "";
-        this.imagen = new ImageView();
+        this.imagen = new ImageView(new Image("libro_contactos/user512.png"));
         this.telefonos = new ArrayList<>();
         this.emails = new ArrayList<>();
         this.sonidos = new ArrayList<>();

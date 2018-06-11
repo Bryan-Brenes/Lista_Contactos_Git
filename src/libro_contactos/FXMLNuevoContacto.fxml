@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="libro_contactos.FXMLNuevoContactoController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="575.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="libro_contactos.FXMLNuevoContactoController">
    <children>
       <MenuBar prefHeight="29.0" prefWidth="575.0">
          <menus>
@@ -39,14 +39,14 @@
             <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="40" />
          </graphic>
       </JFXButton>
-      <ImageView fx:id="imageView" fitHeight="119.0" fitWidth="118.0" layoutX="229.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageView" fitHeight="119.0" fitWidth="118.0" layoutX="229.0" layoutY="75.0" onMouseClicked="#cargarImagen" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@user512.png" />
          </image>
       </ImageView>
-      <ScrollPane hbarPolicy="NEVER" layoutX="139.0" layoutY="220.0" prefHeight="354.0" prefWidth="298.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
+      <ScrollPane hbarPolicy="NEVER" layoutX="119.0" layoutY="219.0" prefHeight="354.0" prefWidth="338.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="datosVbox" prefHeight="354.0" prefWidth="282.0">
+            <VBox fx:id="datosVbox" prefHeight="434.0" prefWidth="338.0">
                <children>
                   <JFXTextField fx:id="nombre_TextField" labelFloat="true" prefHeight="29.0" prefWidth="250.0" promptText="Nombre">
                      <padding>
@@ -57,16 +57,16 @@
                      <children>
                         <HBox fx:id="Hbox_telefonos" prefWidth="200.0" spacing="25.0">
                            <children>
-                              <JFXComboBox fx:id="tipo_telefono" />
+                              <JFXComboBox fx:id="tipo_telefono" prefHeight="26.0" prefWidth="166.0" />
                               <JFXTextField fx:id="telefono_textField" labelFloat="true" promptText="teléfono" />
-                              <JFXButton>
+                              <JFXButton fx:id="agregar_numero">
                                  <graphic>
                                     <FontAwesomeIconView fx:id="agregarTelefono_btn" glyphName="PLUS_CIRCLE" size="16" />
                                  </graphic>
                               </JFXButton>
                            </children>
                            <padding>
-                              <Insets left="25.0" right="25.0" />
+                              <Insets right="25.0" />
                            </padding>
                         </HBox>
                      </children>
@@ -81,16 +81,16 @@
                      <children>
                         <HBox fx:id="Hbox_correos" prefWidth="200.0" spacing="25.0">
                            <children>
-                              <JFXComboBox fx:id="correo_tipo" />
+                              <JFXComboBox fx:id="correo_tipo" prefHeight="26.0" prefWidth="171.0" />
                               <JFXTextField fx:id="correo_TextField" labelFloat="true" promptText="correo" />
-                              <JFXButton>
+                              <JFXButton fx:id="agregar_correo">
                                  <graphic>
                                     <FontAwesomeIconView fx:id="agregarCorreo_btn" glyphName="PLUS_CIRCLE" size="16" />
                                  </graphic>
                               </JFXButton>
                            </children>
                            <padding>
-                              <Insets left="25.0" right="25.0" />
+                              <Insets right="25.0" />
                            </padding>
                         </HBox>
                      </children>
@@ -134,5 +134,7 @@
             </VBox>
          </content>
       </ScrollPane>
+      <JFXButton fx:id="guardar_btn" buttonType="RAISED" layoutX="323.0" layoutY="600.0" text="Guardar" />
+      <JFXButton fx:id="cancelar_btn" buttonType="RAISED" layoutX="195.0" layoutY="600.0" text="Cancelar" />
    </children>
 </AnchorPane>
