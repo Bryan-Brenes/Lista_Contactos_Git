@@ -783,7 +783,7 @@ public class FXMLNuevoContactoController implements Initializable {
                     index++;
                 }
             }
-            
+            contacto.imprimirInfoContacto();
         }//<>
     }
     

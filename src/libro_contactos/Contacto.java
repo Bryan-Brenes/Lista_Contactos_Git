@@ -190,6 +190,67 @@ public class Contacto {
         this.deportes = deportes;
     }
     
-    
+    public void imprimirInfoContacto(){
+        //Nombre
+        System.out.println("\nNombre: " + this.nombre);
+        
+        //Telefonos
+        System.out.println("\nTelefonos");
+        int indice = 0;
+        while (indice < this.telefonos.size()) {
+            
+            String[] telefono = this.telefonos.get(indice);
+            System.out.println("Telefono " + (indice + 1) + ": " + telefono[0] + " " + telefono[1]);
+            indice++;
+        }
+        
+        //Emails
+        System.out.println("\nCorreos");
+        indice = 0;
+        while (indice < this.emails.size()) {
+            
+            String[] correo = this.emails.get(indice);
+            System.out.println("Telefono " + (indice+1) + ": " + correo[0] + " " + correo[1]);
+            indice++;
+        }
+        
+        //Sonido
+        System.out.println("\nSonido: " + this.sonidos);
+        
+        //Direccion Fisica
+        System.out.println("\nDierccion fisica: " + this.direccionFisica);
+        
+        //Lugar de trabajo
+        System.out.println("\nLugar de trabajo: " + this.lugarTrabajo);
+        
+        //Lugar de estudio
+        System.out.println("\nLugar de estudio: " + this.lugarEstudio);
+        
+        //Notas
+        System.out.println("Notas: " + this.notas);
+        
+        //Acerca de familia
+        System.out.println("\nAcerca de Familia: " + this.acercaFamilia);
+        
+        //Profesion
+        System.out.println("\nProfesión: " + this.profesion);
+        
+        //Cumpleanios
+        System.out.println("\nCumpleaños: " + this.fechaCumpleanios);
+        
+        //Aniversario
+        System.out.println("\nAniversario: " + this.fechaAniversario);
+        
+        //Direccion de trabajo
+        System.out.println("\nDirección de trabajo: " + this.direccionTrabajo);
+        
+        //Entretenimiento
+        System.out.println("\nEntretenimiento: " + this.entretenimiento);
+        
+        //Deportes
+        System.out.println("\nDeportes: " + this.deportes);
+        
+        
+    }
     
 }//<>
