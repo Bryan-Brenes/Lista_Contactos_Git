@@ -461,8 +461,39 @@ public class FXMLNuevoContactoController implements Initializable {
             
             opciones.remove(sourceID);
         }else if(sourceID.equals("cumpleanios")){
+            JFXDatePicker datePicker = new JFXDatePicker();
+            datePicker.setId(sourceID);
+            datePicker.setPrefWidth(240);
+            listaOpcionalesFecha.add(datePicker);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(datePicker,btn);
+            
+            opciones.remove(sourceID);
             
         }else if(sourceID.equals("aniversario")){
+            
+            JFXDatePicker datePicker = new JFXDatePicker();
+            datePicker.setId(sourceID);
+            datePicker.setPrefWidth(240);
+            listaOpcionalesFecha.add(datePicker);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(datePicker,btn);
+            
+            opciones.remove(sourceID);
             
         }else if(sourceID.equals("direccionTrabajo")){
 
@@ -526,6 +557,7 @@ public class FXMLNuevoContactoController implements Initializable {
         Vbox_camposOpcionales.getChildren().add(hbox);
         popup.hide();
         System.out.println("Lista TextArea: " + listaOpcionalesTextArea);
+        System.out.println("Lista DatePickers: " + listaOpcionalesFecha);
     }
 
     public void initPopUp(ArrayList<String> opciones){
@@ -623,7 +655,15 @@ public class FXMLNuevoContactoController implements Initializable {
         System.out.println("btnID: " + btn.getId());
         
         if (btn.getId().equals("cumpleanios") || btn.getId().equals("aniversario")) {
-            
+            int area_index = 0;
+            for (JFXDatePicker fecha : listaOpcionalesFecha) {
+                if (fecha.getId().equals(btn.getId())) {
+                    area_index = listaOpcionalesFecha.indexOf(fecha);
+                    break;
+                }
+            }
+            opciones.add(btn.getId());
+            listaOpcionalesFecha.remove(area_index);
         }else{
             
             int area_index = 0;

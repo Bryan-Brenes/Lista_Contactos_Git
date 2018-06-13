@@ -110,17 +110,17 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <JFXTextArea fx:id="direccionFisica" prefHeight="35.0" prefWidth="282.0" promptText="Dirección física">
+                  <JFXTextArea fx:id="direccionFisica" labelFloat="true" prefHeight="35.0" prefWidth="282.0" promptText="Dirección física">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="LugarTrabajo" layoutX="10.0" layoutY="201.0" prefHeight="35.0" prefWidth="282.0" promptText="Lugar de trabajo">
+                  <JFXTextArea fx:id="LugarTrabajo" labelFloat="true" layoutX="10.0" layoutY="201.0" prefHeight="35.0" prefWidth="282.0" promptText="Lugar de trabajo">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="lugarEstudio" layoutX="10.0" layoutY="250.0" prefHeight="49.0" prefWidth="282.0" promptText="Lugar de estudio">
+                  <JFXTextArea fx:id="lugarEstudio" labelFloat="true" layoutX="10.0" layoutY="250.0" prefHeight="49.0" prefWidth="282.0" promptText="Lugar de estudio">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
