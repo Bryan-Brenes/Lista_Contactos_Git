@@ -7,6 +7,8 @@ package libro_contactos;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -16,10 +18,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -108,9 +112,27 @@ public class FXMLNuevoContactoController implements Initializable {
     private ArrayList<JFXButton> listabotones;
     private ArrayList<JFXButton> listabotonesCorreo;
     
+    //Listas que contienen la información del contacto
+    private ArrayList<JFXComboBox> listaTipoTelefonos;
+    private ArrayList<JFXComboBox> listaTipoCorreos;
+    
+    private ArrayList<JFXTextField> listaTelefonosTextFields;
+    private ArrayList<JFXTextField> listaCorreosTextFields;
+    
+    private ArrayList<JFXTextArea> listaOpcionalesTextArea;
+    private ArrayList<JFXDatePicker> listaOpcionalesFecha;
+    
+    //Lista de opciones para datos opcionales
+    private ArrayList<String> opciones; 
+    
+    
     /*Se debe crear variables globales para almacenar los elementos graficos de 
     manera que se referencien mediante el id, sino con esa variable.
     Esto porque los elementos no son fijos.*/
+    
+    private JFXPopup popup; 
+    @FXML
+    private VBox Vbox_camposOpcionales;
 
     /**
      * Initializes the controller class.
@@ -118,8 +140,35 @@ public class FXMLNuevoContactoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        //Inicializando listas de informacion
+        
         listabotones = new ArrayList<>();
+        listabotones.add(agregar_numero);
+        
         listabotonesCorreo = new ArrayList<>();
+        listabotonesCorreo.add(agregar_correo);
+        
+        listaTipoCorreos = new ArrayList<>();
+        listaTipoCorreos.add(correo_tipo);
+        
+        listaTipoTelefonos = new ArrayList<>();
+        listaTipoTelefonos.add(tipo_telefono);
+        
+        listaTelefonosTextFields = new ArrayList<>();
+        listaTelefonosTextFields.add(telefono_textField);
+        
+        listaCorreosTextFields = new ArrayList<>();
+        listaCorreosTextFields.add(correo_TextField);
+        
+        listaOpcionalesTextArea = new ArrayList<>(); 
+        listaOpcionalesFecha = new ArrayList<>(); 
+        
+        opciones = new ArrayList<>();
+        String[] opt = {"notas", "acerca","profesion","cumpleanios",
+            "aniversario", "direccionTrabajo", "entretenimiento", "deportes"};
+        opciones.addAll(Arrays.asList(opt));
+        
+        System.out.println(opciones);
         
         //Inicializacion del singleton de contactos
         contacto = new Contacto();
@@ -133,15 +182,9 @@ public class FXMLNuevoContactoController implements Initializable {
                 new Label("Otro"));
         correo_tipo.getSelectionModel().select(0);
         
-        /*sonidoCombobox.getItems().addAll(new Label("Silencio"), new Label("sonido1"),
-                new Label("Sonido2"), new Label("sonido3"), new Label("sonido4"),
-                new Label("sonido5"));*/
         sonidoCombobox.getItems().addAll("Silencio", "Sonido1", "Sonido 2", "Sonido 3",
                 "Sonido4", "Sonido 5");
         sonidoCombobox.getSelectionModel().select(0);
-        
-
-
         
     }   //<>
     
@@ -188,24 +231,28 @@ public class FXMLNuevoContactoController implements Initializable {
         
     }
     
-    public void añadirTelefono(){
+    @FXML
+    public void añadirTelefono(ActionEvent event){
         
         Vbox_telefonos.getChildren().add(crearHbox("telefono"));
-        System.out.println("Tamaño listabotones: " + listabotones.size());
+        System.out.println("Cantidad botones tel: " + listabotones.size());
+         
+        //Cambiar el icono por el de borrar
+        JFXButton btn = (JFXButton) event.getSource();
+        FontAwesomeIconView icon = (FontAwesomeIconView)btn.getGraphic();
+        icon.setIcon(FontAwesomeIcon.TRASH);
+        btn.setOnAction(e -> removerTelefono(e));
         
-        for (int i = 0; i < listabotones.size() - 1; i++) {
-            listabotones.get(i).setVisible(false);
-        }
         
         if (listabotones.size() == 1) {
             FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_numero.getGraphic();
             icon2.setIcon(FontAwesomeIcon.TRASH);
-            agregar_numero.setOnAction(e -> removerTelefono());
+            agregar_numero.setOnAction(e -> removerTelefono(e));
         }
     }
     
-    public void removerTelefono(){
-        System.out.println("Tamaño listabotones: " + listabotones.size());
+    public void removerTelefono(ActionEvent event){
+
         if (listabotones.size() == 1) {
             Parent root = listabotones.get(0).getParent();
             Vbox_telefonos.getChildren().remove(root);
@@ -213,29 +260,44 @@ public class FXMLNuevoContactoController implements Initializable {
             
             FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_numero.getGraphic();
             icon2.setIcon(FontAwesomeIcon.PLUS_CIRCLE);
-            agregar_numero.setOnAction(e -> añadirTelefono());
-        }else{
-            Parent root = listabotones.get(listabotones.size()-2).getParent();
-            Vbox_telefonos.getChildren().remove(root);
-            listabotones.remove(listabotones.size() - 2);
+            agregar_numero.setOnAction(e -> añadirTelefono(e));
         }
+        
+        JFXButton btn = (JFXButton) event.getSource();
+        Parent root = btn.getParent();
+        Vbox_telefonos.getChildren().remove(root);
+        
+        // Este indice es para eleminiar el combobox y textField
+        // correspondientes a este boton
+        int btn_index = listabotones.indexOf(btn);
+        
+        listabotones.remove(btn);
+        listaTelefonosTextFields.remove(btn_index);
+        listaTipoTelefonos.remove(btn_index);
+
     }
     
-    public void añadirCorreo(){
+    @FXML
+    public void añadirCorreo(ActionEvent event){
         Vbox_correos.getChildren().add(crearHbox("correo"));
         
-        for (int i = 0; i < listabotonesCorreo.size() - 1; i++) {
-            listabotonesCorreo.get(i).setVisible(false);
-        }
+        System.out.println(listaCorreosTextFields);
+        
+        //Cambiar el icono por el de borrar
+        JFXButton btn = (JFXButton) event.getSource();
+        FontAwesomeIconView icon = (FontAwesomeIconView)btn.getGraphic();
+        icon.setIcon(FontAwesomeIcon.TRASH);
+        btn.setOnAction(e -> removerCorreo(e));
         
         if (listabotonesCorreo.size() == 1) {
             FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_correo.getGraphic();
             icon2.setIcon(FontAwesomeIcon.TRASH);
-            agregar_correo.setOnAction(e -> removerCorreo());
+            agregar_correo.setOnAction(e -> removerCorreo(e));
         }
     }
     
-    public void removerCorreo(){
+    public void removerCorreo(ActionEvent event){
+        
         if (listabotonesCorreo.size() == 1) {
             Parent root = listabotonesCorreo.get(0).getParent();
             Vbox_correos.getChildren().remove(root);
@@ -243,13 +305,25 @@ public class FXMLNuevoContactoController implements Initializable {
             
             FontAwesomeIconView icon2 = (FontAwesomeIconView)agregar_correo.getGraphic();
             icon2.setIcon(FontAwesomeIcon.PLUS_CIRCLE);
-            agregar_correo.setOnAction(e -> añadirCorreo());
-        }else{
-            Parent root = listabotonesCorreo.get(listabotonesCorreo.size()-2).getParent();
-            Vbox_correos.getChildren().remove(root);
-            listabotonesCorreo.remove(listabotonesCorreo.size() - 2);
+            agregar_correo.setOnAction(e -> añadirCorreo(e));
         }
+        
+        JFXButton btn = (JFXButton) event.getSource();
+        Parent root = btn.getParent();
+        Vbox_correos.getChildren().remove(root);
+        
+        int btn_index = listabotonesCorreo.indexOf(btn);
+        
+        listabotonesCorreo.remove(btn);
+        listaTipoCorreos.remove(btn_index);
+        listaCorreosTextFields.remove(btn_index);
+        
+        System.out.println(listaCorreosTextFields);
     }
+    
+    /*Se crea el Hbox que va a contener ya sea los numeros o los correos
+    Este se utiliza cuando el usuario selecciona el boton de agregar nuevo
+    */
     
     public HBox crearHbox(String tipo){
         HBox hbox = new HBox(25);
@@ -259,47 +333,312 @@ public class FXMLNuevoContactoController implements Initializable {
                 new Label("Otro"));
             correos.getSelectionModel().select(0);
             correos.setPrefSize(USE_COMPUTED_SIZE, 26);
+            listaTipoCorreos.add(correos);
             
             JFXTextField correo_TextField = new JFXTextField();
             correo_TextField.setPromptText("correo");
             correo_TextField.setPrefSize(120, 26);
             correo_TextField.setLabelFloat(true);
+            listaCorreosTextFields.add(correo_TextField);
             
             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
             icon.setSize("16");
             JFXButton add_btn = new JFXButton("",icon);
             listabotonesCorreo.add(add_btn);
-            add_btn.setOnAction(e-> añadirCorreo());
+            
+            
+            add_btn.setOnAction(e-> añadirCorreo(e));
             
             hbox.setPrefWidth(100);
             
             hbox.getChildren().addAll(correos, correo_TextField, add_btn);
         }else{
+            
+            //Se inicializa un ComboBox con sus caracteristicas adecuadas
             JFXComboBox<Label> telefonos = new JFXComboBox();
             telefonos.getItems().addAll(new Label("Móvil"), new Label("Casa"),
                 new Label("Fax"), new Label("Trabajo"), new Label("Otro"));
             telefonos.getSelectionModel().select(0);
             telefonos.setPrefSize(USE_COMPUTED_SIZE, 26);
+            listaTipoTelefonos.add(telefonos);
             
+            //Se inicializa un textField para el numero de telefono
             JFXTextField telefono_TextField = new JFXTextField();
             telefono_TextField.setPromptText("teléfono");
             telefono_TextField.setPrefSize(120, 26);
             telefono_TextField.setLabelFloat(true);
+            listaTelefonosTextFields.add(telefono_TextField);
             
+            //Se inicializa un JFXButton con un icon de agregar
             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
             icon.setSize("16");
             JFXButton add_btn = new JFXButton("",icon);
             /*FontAwesomeIconView icon2 = (FontAwesomeIconView)add_btn.getGraphic();
             icon2.setIcon(FontAwesomeIcon.CHECK);*/
+            
+            //Se agregar el boton a una lista de botones para poder referenciarlos
+            //mas facilmente
             listabotones.add(add_btn);
-            add_btn.setOnAction(e-> añadirTelefono());
+            
+            //Se incorpora al boton nuevo la funcionalidad de agregar telefono
+            add_btn.setOnAction(e-> añadirTelefono(e));
             
             hbox.setPrefWidth(100);
             
+            //Se añaden al hbox los elementos que va a contener
             hbox.getChildren().addAll(telefonos, telefono_TextField, add_btn);
         }
         return hbox;
     }
-
     
+    public void mostrarPopUp(){
+        initPopUp(opciones);
+        popup.show(agregarCampos_btn);
+    }
+    
+    public void agregarCampoOpcional(ActionEvent e){
+        JFXButton source = (JFXButton) e.getSource();
+        
+        HBox hbox = new HBox(25);
+        
+        String sourceID = source.getId();
+        
+        if (sourceID.equals("notas")) {
+
+            JFXTextArea area = new JFXTextArea();
+            area.setId(sourceID);
+            area.setPromptText("Notas");
+            area.setLabelFloat(true);
+            area.setPrefSize(240, USE_COMPUTED_SIZE);
+            listaOpcionalesTextArea.add(area);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(area,btn);
+            
+            opciones.remove(sourceID);
+        }else if(sourceID.equals("acerca")){
+
+            JFXTextArea area = new JFXTextArea();
+            area.setId(sourceID);
+            area.setPromptText("Acerca de familia");
+            area.setLabelFloat(true);
+            area.setPrefSize(240, USE_COMPUTED_SIZE);
+            listaOpcionalesTextArea.add(area);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(area,btn);
+            
+            opciones.remove(sourceID);
+        }else if(sourceID.equals("profesion")){
+
+            JFXTextArea area = new JFXTextArea();
+            area.setId(sourceID);
+            area.setPromptText("Profesión");
+            area.setLabelFloat(true);
+            area.setPrefSize(240, USE_COMPUTED_SIZE);
+            listaOpcionalesTextArea.add(area);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(area,btn);
+            
+            opciones.remove(sourceID);
+        }else if(sourceID.equals("cumpleanios")){
+            
+        }else if(sourceID.equals("aniversario")){
+            
+        }else if(sourceID.equals("direccionTrabajo")){
+
+            JFXTextArea area = new JFXTextArea();
+            area.setId(sourceID);
+            area.setPromptText("Dirección física del trabajo");
+            area.setLabelFloat(true);
+            area.setPrefSize(240, USE_COMPUTED_SIZE);
+            listaOpcionalesTextArea.add(area);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(area,btn);
+            
+            opciones.remove(sourceID);
+        }else if(sourceID.equals("entretenimiento")){
+
+            JFXTextArea area = new JFXTextArea();
+            area.setId(sourceID);
+            area.setPromptText("Entretenimiento");
+            area.setLabelFloat(true);
+            area.setPrefSize(240, USE_COMPUTED_SIZE);
+            listaOpcionalesTextArea.add(area);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(area,btn);
+            
+            opciones.remove(sourceID);
+        }else if(sourceID.equals("deportes")){
+
+            JFXTextArea area = new JFXTextArea();
+            area.setId(sourceID);
+            area.setPromptText("Deportes");
+            area.setLabelFloat(true);
+            area.setPrefSize(240, USE_COMPUTED_SIZE);
+            listaOpcionalesTextArea.add(area);
+            
+            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            icon.setSize("16");
+            JFXButton btn = new JFXButton("",icon);
+            btn.setId(sourceID);
+            btn.setOnAction((event) -> {
+                removerCampoOpcional(event);
+            });
+            hbox.getChildren().addAll(area,btn);
+            
+            opciones.remove(sourceID);
+        }
+
+        Vbox_camposOpcionales.getChildren().add(hbox);
+        popup.hide();
+        System.out.println("Lista TextArea: " + listaOpcionalesTextArea);
+    }
+
+    public void initPopUp(ArrayList<String> opciones){
+        popup = new JFXPopup();
+        VBox vbox = new VBox(1);
+        
+        for (String op : opciones) {
+            if(op.equals("notas")){
+
+                JFXButton btn = new JFXButton("Notas");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+                
+            }else if(op.equals("acerca")){
+                
+                JFXButton btn = new JFXButton("Acerca de familia");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }else if(op.equals("profesion")){
+                
+                JFXButton btn = new JFXButton("Profesion");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }else if(op.equals("cumpleanios")){
+                
+                JFXButton btn = new JFXButton("Cumpleaños");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }else if(op.equals("aniversario")){
+                
+                JFXButton btn = new JFXButton("Aniversario");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }else if(op.equals("direccionTrabajo")){
+                
+                JFXButton btn = new JFXButton("Dirección física del trabajo");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }else if(op.equals("entretenimiento")){
+                
+                JFXButton btn = new JFXButton("Entretenimiento");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }else if(op.equals("deportes")){
+                
+                JFXButton btn = new JFXButton("Deportes");
+                btn.setId(op);
+                btn.setOnAction((event) -> {
+                    agregarCampoOpcional(event);
+                });
+                btn.setPrefWidth(200);
+                vbox.getChildren().add(btn);
+            }
+            
+            popup.setPopupContent(vbox);
+            /*popup.setAnchorX(150);
+            popup.setAnchorY(150);*/
+               
+        }
+        
+        
+    }//<>
+
+    private void removerCampoOpcional(ActionEvent event) {
+        JFXButton btn = (JFXButton) event.getSource();
+        Parent root = btn.getParent();
+        System.out.println("btnID: " + btn.getId());
+        
+        if (btn.getId().equals("cumpleanios") || btn.getId().equals("aniversario")) {
+            
+        }else{
+            
+            int area_index = 0;
+            for (JFXTextArea area : listaOpcionalesTextArea) {
+                if (area.getId().equals(btn.getId())) {
+                    area_index = listaOpcionalesTextArea.indexOf(area);
+                    break;
+                }
+            }
+            opciones.add(btn.getId());
+            listaOpcionalesTextArea.remove(area_index);
+        }
+        Vbox_camposOpcionales.getChildren().remove(root);
+        System.out.println("Lista TextArea: " + listaOpcionalesTextArea);
+        System.out.println("Lista DatePicker: " + listaOpcionalesFecha);
+        
+    }
 }
