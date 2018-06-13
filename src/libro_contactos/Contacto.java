@@ -210,7 +210,7 @@ public class Contacto {
         while (indice < this.emails.size()) {
             
             String[] correo = this.emails.get(indice);
-            System.out.println("Telefono " + (indice+1) + ": " + correo[0] + " " + correo[1]);
+            System.out.println("Correo " + (indice+1) + ": " + correo[0] + " " + correo[1]);
             indice++;
         }
         
@@ -227,7 +227,7 @@ public class Contacto {
         System.out.println("\nLugar de estudio: " + this.lugarEstudio);
         
         //Notas
-        System.out.println("Notas: " + this.notas);
+        System.out.println("\nNotas: " + this.notas);
         
         //Acerca de familia
         System.out.println("\nAcerca de Familia: " + this.acercaFamilia);

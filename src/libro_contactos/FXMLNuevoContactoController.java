@@ -745,6 +745,7 @@ public class FXMLNuevoContactoController implements Initializable {
             dialog.show();
         }else{
             
+            //Almacenar nombre
             contacto.setNombre(nombre_TextField.getText());
             
             //Elementos por revisar
@@ -759,6 +760,8 @@ public class FXMLNuevoContactoController implements Initializable {
             lista elementos opcionales Fechas
             */
             
+            
+            //Almacenar telefonos
             if (!listaTelefonosTextFields.isEmpty()) {
                 contacto.getTelefonos().clear();
                 int index = 0;
@@ -775,14 +778,36 @@ public class FXMLNuevoContactoController implements Initializable {
 
                             contacto.getTelefonos().add(telefonos_por_agregar);
                         }else
-                            listaTelefonosTextFields.get(index).setUnFocusColor(Paint.valueOf("#ff0000"));
-                        
-                        
-                        
+                            listaTelefonosTextFields.get(index).setUnFocusColor(Paint.valueOf("#ff0000"));  
                     }
                     index++;
                 }
             }
+            
+            //Almacenar correos
+            if (!listaCorreosTextFields.isEmpty()) {
+                contacto.getEmails().clear();
+                int index = 0;
+                while (index < listaCorreosTextFields.size()) {                    
+                    if (!listaCorreosTextFields.get(index).getText().equals("")) {
+                        listaCorreosTextFields.get(index).setUnFocusColor(Paint.valueOf("#4d4d4d"));
+                        //Chequear si el numero es valido, si solo tiene numeros
+                        String regex = "^(.+)@(.+)$";
+                        if(listaCorreosTextFields.get(index).getText().matches(regex)){
+                            Label lbl = (Label)listaTipoCorreos.get(index).getValue();
+                            String[] correo_por_agregar = new String[2];
+                            correo_por_agregar[0] = lbl.getText();
+                            correo_por_agregar[1] = listaCorreosTextFields.get(index).getText();
+
+                            contacto.getEmails().add(correo_por_agregar);
+                        }else
+                            listaCorreosTextFields.get(index).setUnFocusColor(Paint.valueOf("#ff0000"));  
+                    }
+                    index++;
+                }
+            }
+            
+            
             contacto.imprimirInfoContacto();
         }//<>
     }
