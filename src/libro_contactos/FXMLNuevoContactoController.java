@@ -8,6 +8,8 @@ package libro_contactos;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -39,8 +41,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -133,6 +137,8 @@ public class FXMLNuevoContactoController implements Initializable {
     private JFXPopup popup; 
     @FXML
     private VBox Vbox_camposOpcionales;
+    @FXML
+    private StackPane stackPane;
 
     /**
      * Initializes the controller class.
@@ -391,6 +397,7 @@ public class FXMLNuevoContactoController implements Initializable {
         return hbox;
     }
     
+    @FXML
     public void mostrarPopUp(){
         initPopUp(opciones);
         popup.show(agregarCampos_btn);
@@ -681,4 +688,30 @@ public class FXMLNuevoContactoController implements Initializable {
         System.out.println("Lista DatePicker: " + listaOpcionalesFecha);
         
     }
+    
+    @FXML
+    public void guardarContacto(){
+        
+        /*Este if es para mostrar un cuadro de dialogo cuando
+        no se ha ingresado ningun nombre ya que este es la "clave principal"*/
+        if (nombre_TextField.getText().equals("")) {
+            stackPane.toFront();
+            JFXDialog dialog = new JFXDialog();
+            dialog.setDialogContainer(stackPane);
+            JFXDialogLayout content = new JFXDialogLayout();
+            content.setHeading(new Text("Error"));
+            content.setBody(new Text("No se ingresó un nombre al contacto"));
+            JFXButton btn = new JFXButton("Entendido");
+            btn.setOnAction((event) -> {
+                stackPane.toBack();
+                dialog.close();
+                
+            });
+            content.setActions(btn);
+            dialog.setContent(content);
+            dialog.show();
+        }
+    }
+    
+    
 }

@@ -15,10 +15,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="575.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="libro_contactos.FXMLNuevoContactoController">
    <children>
+      <StackPane fx:id="stackPane" layoutX="10.0" layoutY="6.0" prefHeight="622.0" prefWidth="558.0" />
       <MenuBar prefHeight="29.0" prefWidth="575.0">
          <menus>
             <Menu mnemonicParsing="false" text="_Menú">
@@ -135,7 +137,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <JFXButton fx:id="guardar_btn" buttonType="RAISED" layoutX="323.0" layoutY="600.0" text="Guardar" />
-      <JFXButton fx:id="cancelar_btn" buttonType="RAISED" layoutX="195.0" layoutY="600.0" text="Cancelar" />
+      <JFXButton fx:id="guardar_btn" buttonType="RAISED" layoutX="323.0" layoutY="600.0" onAction="#guardarContacto" text="Guardar" />
+      <JFXButton fx:id="cancelar_btn" buttonType="RAISED" layoutX="195.0" layoutY="600.0" onAction="#cambiarPantalla_a_principal" text="Cancelar" />
    </children>
 </AnchorPane>
