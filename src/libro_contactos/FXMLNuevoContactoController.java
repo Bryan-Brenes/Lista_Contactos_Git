@@ -418,7 +418,7 @@ public class FXMLNuevoContactoController implements Initializable {
     
     public void verificarCorreo(KeyEvent event){
         //String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-        String regex = "^(.+)@(.+).(.+)$";
+        String regex = "^(.+)@(.+)$";
         JFXTextField txt = (JFXTextField) event.getSource();
         if (!txt.getText().matches(regex) && !txt.getText().equals("")) {
             txt.setUnFocusColor(Paint.valueOf("#ff0000"));
