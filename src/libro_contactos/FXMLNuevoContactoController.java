@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,10 +40,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -345,6 +348,7 @@ public class FXMLNuevoContactoController implements Initializable {
             correo_TextField.setPromptText("correo");
             correo_TextField.setPrefSize(120, 26);
             correo_TextField.setLabelFloat(true);
+            correo_TextField.setOnKeyReleased(e -> verificarCorreo(e));
             listaCorreosTextFields.add(correo_TextField);
             
             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
@@ -373,6 +377,7 @@ public class FXMLNuevoContactoController implements Initializable {
             telefono_TextField.setPromptText("teléfono");
             telefono_TextField.setPrefSize(120, 26);
             telefono_TextField.setLabelFloat(true);
+            telefono_TextField.setOnKeyReleased(e -> verificarTelefono(e));
             listaTelefonosTextFields.add(telefono_TextField);
             
             //Se inicializa un JFXButton con un icon de agregar
@@ -395,6 +400,34 @@ public class FXMLNuevoContactoController implements Initializable {
             hbox.getChildren().addAll(telefonos, telefono_TextField, add_btn);
         }
         return hbox;
+    }
+    
+    public void verificarTelefono(KeyEvent event){
+        JFXTextField txt = (JFXTextField) event.getSource();
+        System.out.println(txt.getText());
+        String regex = "\\d*";
+        if (!txt.getText().matches(regex)) {
+            txt.setUnFocusColor(Paint.valueOf("#ff0000"));
+            System.out.println("no aceptado");
+        }
+        else{
+            txt.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+            System.out.println("aceptado");
+        }
+    }
+    
+    public void verificarCorreo(KeyEvent event){
+        //String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        String regex = "^(.+)@(.+).(.+)$";
+        JFXTextField txt = (JFXTextField) event.getSource();
+        if (!txt.getText().matches(regex) && !txt.getText().equals("")) {
+            txt.setUnFocusColor(Paint.valueOf("#ff0000"));
+            System.out.println("no aceptado");
+        }
+        else{
+            txt.setUnFocusColor(Paint.valueOf("#4d4d4d"));
+            System.out.println("aceptado");
+        }
     }
     
     @FXML
@@ -710,7 +743,48 @@ public class FXMLNuevoContactoController implements Initializable {
             content.setActions(btn);
             dialog.setContent(content);
             dialog.show();
-        }
+        }else{
+            
+            contacto.setNombre(nombre_TextField.getText());
+            
+            //Elementos por revisar
+            /*
+            lista telefonos (tipo y valor)
+            lista correos (tipo y valor)
+            Sonido
+            Direccion fisica
+            lugar de trabajo
+            jugar de estudio
+            lista elementos opcionales TextArea
+            lista elementos opcionales Fechas
+            */
+            
+            if (!listaTelefonosTextFields.isEmpty()) {
+                contacto.getTelefonos().clear();
+                int index = 0;
+                while (index < listaTelefonosTextFields.size()) {                    
+                    if (!listaTelefonosTextFields.get(index).getText().equals("")) {
+                        listaTelefonosTextFields.get(index).setUnFocusColor(Paint.valueOf("#4d4d4d"));
+                        //Chequear si el numero es valido, si solo tiene numeros
+                        String regex = "\\d*";
+                        if(listaTelefonosTextFields.get(index).getText().matches(regex)){
+                            Label lbl = (Label)listaTipoTelefonos.get(index).getValue();
+                            String[] telefonos_por_agregar = new String[2];
+                            telefonos_por_agregar[0] = lbl.getText();
+                            telefonos_por_agregar[1] = listaTelefonosTextFields.get(index).getText();
+
+                            contacto.getTelefonos().add(telefonos_por_agregar);
+                        }else
+                            listaTelefonosTextFields.get(index).setUnFocusColor(Paint.valueOf("#ff0000"));
+                        
+                        
+                        
+                    }
+                    index++;
+                }
+            }
+            
+        }//<>
     }
     
     
