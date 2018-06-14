@@ -30,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -504,6 +505,7 @@ public class FXMLNuevoContactoController implements Initializable {
             JFXDatePicker datePicker = new JFXDatePicker();
             datePicker.setId(sourceID);
             datePicker.setPrefWidth(240);
+            datePicker.setPromptText("Cumpleaños");
             listaOpcionalesFecha.add(datePicker);
             
             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
@@ -522,6 +524,7 @@ public class FXMLNuevoContactoController implements Initializable {
             JFXDatePicker datePicker = new JFXDatePicker();
             datePicker.setId(sourceID);
             datePicker.setPrefWidth(240);
+            datePicker.setPromptText("Aniversario");
             listaOpcionalesFecha.add(datePicker);
             
             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
@@ -603,6 +606,16 @@ public class FXMLNuevoContactoController implements Initializable {
     public void initPopUp(ArrayList<String> opciones){
         popup = new JFXPopup();
         VBox vbox = new VBox(1);
+        
+        if(opciones.isEmpty()){
+            Label lbl = new Label("No hay más opciones disponibles");
+            lbl.setPrefHeight(40);
+            lbl.setPrefWidth(300);
+            lbl.setAlignment(Pos.CENTER);
+            vbox.getChildren().add(lbl);
+            popup.setPopupContent(vbox);
+            return;
+        }
         
         for (String op : opciones) {
             if(op.equals("notas")){
@@ -804,6 +817,59 @@ public class FXMLNuevoContactoController implements Initializable {
                             listaCorreosTextFields.get(index).setUnFocusColor(Paint.valueOf("#ff0000"));  
                     }
                     index++;
+                }
+            }
+            
+            //Almacenar sonido
+            /*Para esto se debe ver la seleccion del usuario y dependiendo
+            de esta se guarda la ruta corresponiente
+            
+            se deben modificar las opciones de sonido a unas que representen el
+            tono
+            
+            se debe convertir el mp3 a .wav*/
+            
+            //Almacenar dirección fisica
+            
+            if (!direccionFisica.getText().equals("")) {
+                contacto.setDireccionFisica(direccionFisica.getText());
+            }
+            
+            //Almacenar lugar de trabajo
+            
+            if (!LugarTrabajo.getText().equals("")) {
+                contacto.setLugarTrabajo(LugarTrabajo.getText());
+            }
+            
+            //Almacenar lugar de estudio
+            
+            if (!lugarEstudio.getText().equals("")) {
+                contacto.setLugarEstudio(lugarEstudio.getText());
+            }
+            
+            //Almacenar opcionales TextArea
+            
+            if (!listaOpcionalesTextArea.isEmpty()) {
+                for (JFXTextArea txt : listaOpcionalesTextArea) {
+                    String id = txt.getId();
+                    System.out.println("ID: " + id);
+                    switch(id){
+                        case "notas":
+                            break;
+                        case "acerca":
+                            break;
+                        case "profesion":
+                            break;
+                        case "direccionTrabajo":
+                            break;
+                        case "entretenimiento":
+                            break;
+                        case "deportes":
+                            break;
+                        default:
+                            break;
+                            
+                    }
                 }
             }
             
