@@ -53,6 +53,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  * FXML Controller class
@@ -192,8 +194,8 @@ public class FXMLNuevoContactoController implements Initializable {
                 new Label("Otro"));
         correo_tipo.getSelectionModel().select(0);
         
-        sonidoCombobox.getItems().addAll("Silencio", "Sonido1", "Sonido 2", "Sonido 3",
-                "Sonido4", "Sonido 5");
+        sonidoCombobox.getItems().addAll("Silencio", "Definite", "Graceful", "Quite impressed",
+                "To the point", "Unconvinced");
         sonidoCombobox.getSelectionModel().select(0);
         
     }   //<>
@@ -822,12 +824,31 @@ public class FXMLNuevoContactoController implements Initializable {
             
             //Almacenar sonido
             /*Para esto se debe ver la seleccion del usuario y dependiendo
-            de esta se guarda la ruta corresponiente
+            de esta se guarda la ruta corresponiente*/
             
-            se deben modificar las opciones de sonido a unas que representen el
-            tono
-            
-            se debe convertir el mp3 a .wav*/
+            String opcionSonido = sonidoCombobox.getValue();
+            switch(opcionSonido){
+                case "Definite":
+                    contacto.setSonidos(opcionSonido, "/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/definite.wav");
+                    break;
+                case "Graceful":
+                    contacto.setSonidos(opcionSonido, "/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/graceful.wav");
+                    break;
+                case "Quite impressed":
+                    contacto.setSonidos(opcionSonido, "/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/quite-impressed.wav");
+                    break;
+                case "To the point":
+                    contacto.setSonidos(opcionSonido, "/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/to-the-point.wav");
+                    break;
+                case "Unconvinced":
+                    contacto.setSonidos(opcionSonido, "/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/unconvinced.wav");
+                    break;
+                case "Silencio":
+                    contacto.setSonidos(opcionSonido, "");
+                    break;
+                default:
+                    break;
+            }
             
             //Almacenar dirección fisica
             
@@ -855,20 +876,44 @@ public class FXMLNuevoContactoController implements Initializable {
                     System.out.println("ID: " + id);
                     switch(id){
                         case "notas":
+                            contacto.setNotas(txt.getText());
                             break;
                         case "acerca":
+                            contacto.setAcercaFamilia(txt.getText());
                             break;
                         case "profesion":
+                            contacto.setProfesion(txt.getText());
                             break;
                         case "direccionTrabajo":
+                            contacto.setDireccionTrabajo(txt.getText());
                             break;
                         case "entretenimiento":
+                            contacto.setEntretenimiento(txt.getText());
                             break;
                         case "deportes":
+                            contacto.setDeportes(txt.getText());
                             break;
                         default:
                             break;
                             
+                    }
+                }
+            }
+            
+            //Almacenar opcionales fechas
+            
+            if (!listaOpcionalesFecha.isEmpty()) {
+                for(JFXDatePicker fecha: listaOpcionalesFecha){
+                    String id = fecha.getId();
+                    switch(id){
+                        case "cumpleanios":
+                            contacto.setFechaCumpleanios(fecha.getValue().toString());
+                            break;
+                        case "aniversario":
+                            contacto.setFechaAniversario(fecha.getValue().toString());
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -878,5 +923,67 @@ public class FXMLNuevoContactoController implements Initializable {
         }//<>
     }
     
+    public void reproducirSonido(){
+        String opcionSonido = sonidoCombobox.getValue();
+        File archivoSonido;
+        switch(opcionSonido){
+            case "Definite":
+                archivoSonido = new File("/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/definite.wav");
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(archivoSonido));
+                    clip.start();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                //contacto.setSonidos(opcionSonido, "libro_contactos/definite.wav");
+                break;
+            case "Graceful":
+                archivoSonido = new File("/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/graceful.wav");
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(archivoSonido));
+                    clip.start();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+            case "Quite impressed":
+                archivoSonido = new File("/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/quite-impressed.wav");
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(archivoSonido));
+                    clip.start();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+            case "To the point":
+                archivoSonido = new File("/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/to-the-point.wav");
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(archivoSonido));
+                    clip.start();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+            case "Unconvinced":
+                archivoSonido = new File("/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/unconvinced.wav");
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(archivoSonido));
+                    clip.start();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+            case "Silencio":
+                
+                break;
+            default:
+                break;
+        }
+    }
     
 }

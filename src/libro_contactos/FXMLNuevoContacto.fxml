@@ -103,10 +103,15 @@
                   <HBox prefWidth="200.0" spacing="20.0">
                      <children>
                         <Label prefHeight="24.0" prefWidth="49.0" text="Sonido:" />
-                        <JFXComboBox fx:id="sonidoCombobox" prefHeight="26.0" prefWidth="126.0" />
+                        <JFXComboBox fx:id="sonidoCombobox" prefHeight="26.0" prefWidth="192.0" />
+                        <JFXButton fx:id="play_btn" buttonType="RAISED" onAction="#reproducirSonido">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="PLAY" size="16" />
+                           </graphic>
+                        </JFXButton>
                      </children>
                      <padding>
-                        <Insets bottom="15.0" left="30.0" right="15.0" top="15.0" />
+                        <Insets bottom="15.0" right="15.0" top="15.0" />
                      </padding>
                      <VBox.margin>
                         <Insets bottom="10.0" />
