@@ -19,7 +19,7 @@ public class Contacto {
     private ImageView imagen;
     private ArrayList<String[]> telefonos;
     private ArrayList<String[]> emails;
-    private ArrayList<String[]> sonidos;
+    private String[] sonido;
     private String direccionFisica;
     private String lugarTrabajo;
     private String lugarEstudio;
@@ -37,7 +37,7 @@ public class Contacto {
         this.imagen = new ImageView(new Image("libro_contactos/user512.png"));
         this.telefonos = new ArrayList<>();
         this.emails = new ArrayList<>();
-        this.sonidos = new ArrayList<>();
+        this.sonido = new String[2];
         this.direccionFisica = "";
         this.lugarTrabajo = "";
         this.lugarEstudio = "";
@@ -91,15 +91,13 @@ public class Contacto {
         this.emails.add(email);
     }
 
-    public ArrayList<String[]> getSonidos() {
-        return sonidos;
+    public String[] getSonidos() {
+        return sonido;
     }
 
     public void setSonidos(String nombre, String url) {
-        String[] sonido = new String[2];
-        sonido[0] = nombre;
-        sonido[1] = url;
-        this.emails.add(sonido);
+        this.sonido[0] = nombre;
+        this.sonido[1] = url;
     }
 
     public String getDireccionFisica() {
@@ -191,6 +189,7 @@ public class Contacto {
     }
     
     public void imprimirInfoContacto(){
+        
         //Nombre
         System.out.println("\nNombre: " + this.nombre);
         
@@ -215,7 +214,8 @@ public class Contacto {
         }
         
         //Sonido
-        System.out.println("\nSonido: " + this.sonidos);
+        System.out.println("\nSonido: " + this.sonido[0]);
+        System.out.println("URL: " + this.sonido[1]);
         
         //Direccion Fisica
         System.out.println("\nDierccion fisica: " + this.direccionFisica);
