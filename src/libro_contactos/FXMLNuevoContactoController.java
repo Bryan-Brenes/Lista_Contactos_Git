@@ -135,6 +135,8 @@ public class FXMLNuevoContactoController implements Initializable {
     //Lista de opciones para datos opcionales
     private ArrayList<String> opciones; 
     
+    private Contactos_singleton contactos;
+    
     
     /*Se debe crear variables globales para almacenar los elementos graficos de 
     manera que se referencien mediante el id, sino con esa variable.
@@ -151,6 +153,9 @@ public class FXMLNuevoContactoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        //Instanciando el singleton
+        contactos = Contactos_singleton.getInstance();
         
         //Inicializando listas de informacion
         
@@ -742,6 +747,29 @@ public class FXMLNuevoContactoController implements Initializable {
         
         /*Este if es para mostrar un cuadro de dialogo cuando
         no se ha ingresado ningun nombre ya que este es la "clave principal"*/
+        
+        contacto = new Contacto();
+        
+        for (Contacto contact : contactos.getListaContactos()) {
+            if (contact.getNombre().equals(nombre_TextField.getText().trim())) {
+                stackPane.toFront();
+                JFXDialog dialog = new JFXDialog();
+                dialog.setDialogContainer(stackPane);
+                JFXDialogLayout content = new JFXDialogLayout();
+                content.setHeading(new Text("Error"));
+                content.setBody(new Text("Ya existe un contacto con el nombre ingresado"));
+                JFXButton btn = new JFXButton("Entendido");
+                btn.setOnAction((event) -> {
+                    stackPane.toBack();
+                    dialog.close();
+                });
+                content.setActions(btn);
+                dialog.setContent(content);
+                dialog.show();
+                return;
+            }
+        }
+        
         if (nombre_TextField.getText().equals("")) {
             stackPane.toFront();
             JFXDialog dialog = new JFXDialog();
@@ -921,6 +949,26 @@ public class FXMLNuevoContactoController implements Initializable {
             
             contacto.imprimirInfoContacto();
         }//<>
+        
+        //Agregar contacto en el lugar que le corresponde segun orden
+        //alfabetico
+        int indice = -1;
+        
+        for (int i = 0; i < contactos.getListaContactos().size(); i++) {
+            int comparacion = contactos.getListaContactos().get(i).getNombre().compareTo(contacto.getNombre());
+            if ( comparacion > 0 ) {
+                indice = i;
+                break;
+            }
+        }
+        
+        if (indice != -1) {
+            contactos.agregarContacto(contacto, indice);
+        }else
+            contactos.agregarContacto(contacto);
+        
+        //contactos.agregarContacto(contacto);
+        cambiarPantalla_a_principal();
     }
     
     public void reproducirSonido(){

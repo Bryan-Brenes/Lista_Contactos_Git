@@ -52,7 +52,7 @@
             <FontAwesomeIconView glyphName="EDIT" size="16" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="ver_btn1" buttonType="RAISED" layoutX="558.0" layoutY="555.0" prefHeight="36.0" prefWidth="69.0" text="Ver">
+      <JFXButton fx:id="ver_btn1" buttonType="RAISED" layoutX="558.0" layoutY="555.0" onAction="#cambiarPantalla_a_ver" prefHeight="36.0" prefWidth="69.0" text="Ver">
          <graphic>
             <FontAwesomeIconView glyphName="EYE" size="16" />
          </graphic>

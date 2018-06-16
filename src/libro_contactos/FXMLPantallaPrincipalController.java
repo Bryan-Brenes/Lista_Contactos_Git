@@ -7,9 +7,11 @@ package libro_contactos;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.sun.javafx.binding.StringFormatter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Formatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,18 +71,25 @@ public class FXMLPantallaPrincipalController implements Initializable {
         listView.setExpanded(true);
         listView.depthProperty().set(2);
         
-        for (int i = 0; i < 10; i++) {
+        for (Contacto contacto: contactos.getListaContactos()) {
             
             try{
-                Label lbl = new Label("item " + i);
+                StringBuilder sb = new StringBuilder();
+                Formatter sf = new Formatter(sb);
+                String numeroTel = " ";
+                if (!contacto.getTelefonos().isEmpty()) {
+                    numeroTel = contacto.getTelefonos().get(0)[1];
+                }
+                String string = sf.format("%1$5s %2$-50s %3$10s %4$-10s"," ", contacto.getNombre().trim(), " ", numeroTel).toString();
                 
-                //Image imgen = new Image(new FileInputStream("/home/bryan/Imágenes/logos/user"));
-                Image imagen = new Image("libro_contactos/user512.png");
-                ImageView img = new ImageView(imagen);
+                Label lbl = new Label(string);
+                lbl.setId(contacto.getNombre());
+                
+                ImageView img = contacto.getImagen();
                 img.setFitHeight(40);
                 img.setFitWidth(40);
                 lbl.setGraphic(img);
-                //lbl.setGraphic(new ImageView(new Image("libro_contactos/user.png")));
+
                 listView.getItems().add(lbl);
                 
                 
@@ -88,10 +97,7 @@ public class FXMLPantallaPrincipalController implements Initializable {
                 System.out.println("no se encontro la imagen");
             }
         }
-        
-        
-        
-        
+          
     }    //<>
     
     @FXML
@@ -101,7 +107,32 @@ public class FXMLPantallaPrincipalController implements Initializable {
     }
     
     public void eliminar(){
-        listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
+        String nombreID = " ";
+        try {
+            nombreID = listView.getSelectionModel().getSelectedItem().getId();
+            listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
+        } catch (Exception e) {
+            
+        }
+        
+        if (nombreID.equals(" ")) {
+            return;
+        }
+        
+        Contacto contact = new Contacto();
+        for (int i = 0; i < contactos.getListaContactos().size(); i++) {
+            if (contactos.getListaContactos().get(i).getNombre().equals(nombreID)) {
+                contact = contactos.getListaContactos().get(i);
+                break;
+            }
+        }
+        
+        try {
+            contactos.getListaContactos().remove(contact);
+        } catch (Exception e) {
+            System.out.println("Error al eliminar contacto de la lista");
+        }
+        
     }
     
     public void cambiarPantalla_a_agregar(){
@@ -111,6 +142,17 @@ public class FXMLPantallaPrincipalController implements Initializable {
             stage.setScene(new Scene(root));
         } catch (IOException ex) {
             Logger.getLogger(FXMLPantallaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void cambiarPantalla_a_ver(){
+        Stage stage = (Stage) listView.getScene().getWindow();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaVer.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            //Logger.getLogger(FXMLPantallaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

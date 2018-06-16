@@ -28,6 +28,10 @@ public class Contactos_singleton {
         return listaContactos;
     }
 
+    public void agregarContacto(Contacto contacto, int indice) {
+        this.listaContactos.add(indice, contacto);
+    }
+    
     public void agregarContacto(Contacto contacto) {
         this.listaContactos.add(contacto);
     }

@@ -23,7 +23,7 @@ public class Libro_contactos extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
         //Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaPrincipal.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLNuevoContacto.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaPrincipal.fxml"));
         
         Scene scene = new Scene(root);
         
