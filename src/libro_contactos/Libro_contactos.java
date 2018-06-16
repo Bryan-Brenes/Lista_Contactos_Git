@@ -49,9 +49,13 @@ public class Libro_contactos extends Application {
 
         String fileName = "DatosContactos.bin";
         try {
-            
+            /*ArrayList<String[]> prueba = new ArrayList<>();
+            String[] s = new String[2];
+            s[0] = "Esto";
+            s[1] = "es una prueba";
+            prueba.add(s);*/
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
-            os.writeObject(contactos.getListaContactos().get(0));
+            os.writeObject(contactos.getListaContactos());
             System.out.println("Si se guardaron");
             os.close();
             
@@ -64,9 +68,12 @@ public class Libro_contactos extends Application {
         String fileName = "DatosContactos.bin";
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream(fileName));
-            Contacto cont = (Contacto) is.readObject();
-            //contactos.setListaContactos(listaContactos);
-            System.out.println(cont);
+            ArrayList<Contacto> cont = (ArrayList<Contacto>) is.readObject();
+            contactos.setListaContactos(cont);
+            /*for (String[] strings : cont) {
+                System.out.println(strings[0]);
+                System.out.println(strings[1]);
+            }*/
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -47,7 +47,7 @@
             <FontAwesomeIconView glyphName="TRASH" size="16" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="editar_btn" buttonType="RAISED" layoutX="644.0" layoutY="555.0" prefHeight="36.0" prefWidth="101.0" text="Editar">
+      <JFXButton fx:id="editar_btn" buttonType="RAISED" layoutX="644.0" layoutY="555.0" onAction="#cambiarPantalla_modificar" prefHeight="36.0" prefWidth="101.0" text="Editar">
          <graphic>
             <FontAwesomeIconView glyphName="EDIT" size="16" />
          </graphic>

@@ -17,7 +17,8 @@ import javafx.scene.image.ImageView;
  */
 public class Contacto implements Serializable{
     private String nombre;
-    private ImageView imagen;
+    //private ImageView imagen;
+    private String ImagenURL;
     private ArrayList<String[]> telefonos;
     private ArrayList<String[]> emails;
     private String[] sonido;
@@ -35,7 +36,8 @@ public class Contacto implements Serializable{
     
     public Contacto(){
         this.nombre = "";
-        this.imagen = new ImageView(new Image("libro_contactos/user512.png"));
+        //this.imagen = new ImageView(new Image("libro_contactos/user512.png"));
+        this.ImagenURL = "/home/bryan/Documentos/Ingeniería en computación/Semestre I/Taller de programación/Proyectos/Proyecto 4/Lista_Contactos_Git/src/libro_contactos/user512.png";
         this.telefonos = new ArrayList<>();
         this.emails = new ArrayList<>();
         this.sonido = new String[2];
@@ -60,14 +62,21 @@ public class Contacto implements Serializable{
         this.nombre = nombre;
     }
 
-    public ImageView getImagen() {
+    /*public ImageView getImagen() {
         return this.imagen;
+    }*/
+    public String getImagenURL(){
+        return this.ImagenURL;
     }
 
-    public void setImagen(Image imagen) {
+    /*public void setImagen(Image imagen) {
         this.imagen = new ImageView(imagen);
         this.imagen.setFitHeight(16);
         this.imagen.setFitWidth(16);
+    }*/
+    
+    public void setImagetURL(String url){
+        this.ImagenURL = url;
     }
 
     public ArrayList<String[]> getTelefonos() {
