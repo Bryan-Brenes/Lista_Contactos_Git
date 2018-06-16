@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -14,13 +9,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="575.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="libro_contactos.FXMLPantallaVerController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="libro_contactos.FXMLPantallaVerController">
    <children>
-      <MenuBar prefHeight="29.0" prefWidth="580.0">
+      <MenuBar fx:id="menubar" prefHeight="29.0" prefWidth="580.0">
          <menus>
             <Menu mnemonicParsing="false" text="_Menú">
                <items>
@@ -40,105 +33,14 @@
             <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="40" />
          </graphic>
       </JFXButton>
-      <ImageView fx:id="imageView" fitHeight="119.0" fitWidth="118.0" layoutX="239.0" layoutY="85.0" onMouseClicked="#cargarImagen" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageView2" fitHeight="119.0" fitWidth="118.0" layoutX="239.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@user512.png" />
          </image>
       </ImageView>
       <ScrollPane hbarPolicy="NEVER" layoutX="129.0" layoutY="229.0" prefHeight="354.0" prefWidth="338.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="datosVbox" prefHeight="434.0" prefWidth="338.0">
-               <children>
-                  <JFXTextField fx:id="nombre_TextField" labelFloat="true" prefHeight="29.0" prefWidth="250.0" promptText="Nombre">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
-                     </padding>
-                  </JFXTextField>
-                  <VBox fx:id="Vbox_telefonos" prefWidth="282.0" spacing="20.0">
-                     <children>
-                        <HBox fx:id="Hbox_telefonos" prefWidth="200.0" spacing="25.0">
-                           <children>
-                              <JFXComboBox fx:id="tipo_telefono" prefHeight="26.0" prefWidth="149.0" />
-                              <JFXTextField fx:id="telefono_textField" labelFloat="true" onKeyReleased="#verificarTelefono" promptText="teléfono" />
-                              <JFXButton fx:id="agregar_numero" onAction="#añadirTelefono">
-                                 <graphic>
-                                    <FontAwesomeIconView fx:id="agregarTelefono_btn" glyphName="PLUS_CIRCLE" size="16" />
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets right="25.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets top="15.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox fx:id="Vbox_correos" layoutX="10.0" layoutY="51.0" prefWidth="282.0" spacing="20.0">
-                     <children>
-                        <HBox fx:id="Hbox_correos" prefWidth="200.0" spacing="25.0">
-                           <children>
-                              <JFXComboBox fx:id="correo_tipo" prefHeight="26.0" prefWidth="148.0" />
-                              <JFXTextField fx:id="correo_TextField" labelFloat="true" onKeyReleased="#verificarCorreo" promptText="correo" />
-                              <JFXButton fx:id="agregar_correo" onAction="#añadirCorreo">
-                                 <graphic>
-                                    <FontAwesomeIconView fx:id="agregarCorreo_btn" glyphName="PLUS_CIRCLE" size="16" />
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets right="25.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets top="15.0" />
-                     </padding>
-                  </VBox>
-                  <HBox prefWidth="200.0" spacing="20.0">
-                     <children>
-                        <Label prefHeight="24.0" prefWidth="49.0" text="Sonido:" />
-                        <JFXComboBox fx:id="sonidoCombobox" prefHeight="26.0" prefWidth="192.0" />
-                        <JFXButton fx:id="play_btn" buttonType="RAISED" onAction="#reproducirSonido">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="PLAY" size="16" />
-                           </graphic>
-                        </JFXButton>
-                     </children>
-                     <padding>
-                        <Insets bottom="15.0" right="15.0" top="15.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <JFXTextArea fx:id="direccionFisica" labelFloat="true" prefHeight="35.0" prefWidth="282.0" promptText="Dirección física">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </JFXTextArea>
-                  <JFXTextArea fx:id="LugarTrabajo" labelFloat="true" layoutX="10.0" layoutY="201.0" prefHeight="35.0" prefWidth="282.0" promptText="Lugar de trabajo">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </JFXTextArea>
-                  <JFXTextArea fx:id="lugarEstudio" labelFloat="true" layoutX="10.0" layoutY="250.0" prefHeight="49.0" prefWidth="282.0" promptText="Lugar de estudio">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </JFXTextArea>
-                  <VBox fx:id="Vbox_camposOpcionales" prefHeight="200.0" prefWidth="100.0" spacing="25.0" />
-                  <JFXButton fx:id="agregarCampos_btn" onAction="#mostrarPopUp" prefHeight="26.0" prefWidth="285.0" text="Añadir campos adicionales">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </VBox.margin>
-                  </JFXButton>
-               </children>
-            </VBox>
+            <VBox fx:id="datosVbox" prefHeight="434.0" prefWidth="338.0" spacing="25.0" />
          </content>
       </ScrollPane>
    </children>

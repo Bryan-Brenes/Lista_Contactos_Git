@@ -14,10 +14,14 @@ import java.util.ArrayList;
 public class Contactos_singleton {
     
     private ArrayList<Contacto> listaContactos;
+    
+    private Contacto contactoSeleccionado;
+    
     private static Contactos_singleton instance = new Contactos_singleton();
     
     private Contactos_singleton(){
         this.listaContactos = new ArrayList<>();
+        this.contactoSeleccionado = new Contacto();
     }
     
     public static Contactos_singleton getInstance(){
@@ -58,5 +62,12 @@ public class Contactos_singleton {
         return true;
     }
     
+    public void setContactoSeleccionado(Contacto contacto){
+        this.contactoSeleccionado = contacto;
+    }
+    
+    public Contacto getContactoSeleccionado(){
+        return this.contactoSeleccionado;
+    }
     
 }

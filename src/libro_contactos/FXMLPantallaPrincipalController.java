@@ -147,6 +147,30 @@ public class FXMLPantallaPrincipalController implements Initializable {
     }
     
     public void cambiarPantalla_a_ver(){
+        
+        String nombreID = " ";
+        try {
+            nombreID = listView.getSelectionModel().getSelectedItem().getId();
+            listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
+        } catch (Exception e) {
+            
+        }
+        
+        if (nombreID.equals(" ")) {
+            //Mostrar popup de usuario no seleccionado
+            return;
+        }
+        
+        Contacto contact = new Contacto();
+        for (int i = 0; i < contactos.getListaContactos().size(); i++) {
+            if (contactos.getListaContactos().get(i).getNombre().equals(nombreID)) {
+                contact = contactos.getListaContactos().get(i);
+                break;
+            }
+        }
+        
+        contactos.setContactoSeleccionado(contact);
+        
         Stage stage = (Stage) listView.getScene().getWindow();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaVer.fxml"));

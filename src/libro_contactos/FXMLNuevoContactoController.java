@@ -137,6 +137,8 @@ public class FXMLNuevoContactoController implements Initializable {
     
     private Contactos_singleton contactos;
     
+    private Image imagenUsuario;
+    
     
     /*Se debe crear variables globales para almacenar los elementos graficos de 
     manera que se referencien mediante el id, sino con esa variable.
@@ -153,6 +155,9 @@ public class FXMLNuevoContactoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        Image image = new Image("libro_contactos/user512.png");
+        imagenUsuario = image;
         
         //Instanciando el singleton
         contactos = Contactos_singleton.getInstance();
@@ -235,12 +240,13 @@ public class FXMLNuevoContactoController implements Initializable {
         //String urlImagen = file.getAbsolutePath();
         
         Image image = new Image("libro_contactos/user512.png");
+        imagenUsuario = image;
         
         try{
             BufferedImage bufferedImage = ImageIO.read(file);
             image = SwingFXUtils.toFXImage(bufferedImage, null);
             Image imagen = image;
-            contacto.setImagen(imagen);
+            imagenUsuario = imagen;
             imageView.setImage(image);
             }catch(IOException e){
                 System.out.println(e);
@@ -749,6 +755,8 @@ public class FXMLNuevoContactoController implements Initializable {
         no se ha ingresado ningun nombre ya que este es la "clave principal"*/
         
         contacto = new Contacto();
+        
+        contacto.setImagen(imagenUsuario);
         
         for (Contacto contact : contactos.getListaContactos()) {
             if (contact.getNombre().equals(nombre_TextField.getText().trim())) {

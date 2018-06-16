@@ -60,7 +60,7 @@ public class Contacto {
     }
 
     public ImageView getImagen() {
-        return imagen;
+        return this.imagen;
     }
 
     public void setImagen(Image imagen) {
