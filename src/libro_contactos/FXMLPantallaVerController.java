@@ -93,7 +93,7 @@ public class FXMLPantallaVerController implements Initializable {
             //Titulo
             Label lbl = new Label("Teléfonos");
             lbl.setPrefWidth(300);
-            lbl.setAlignment(Pos.CENTER);
+            //lbl.setAlignment(Pos.CENTER);
             datosVbox.getChildren().add(lbl);
             
             /*Agregando telefonos*/
@@ -114,7 +114,7 @@ public class FXMLPantallaVerController implements Initializable {
             //Titulo
             Label lbl = new Label("Correos");
             lbl.setPrefWidth(300);
-            lbl.setAlignment(Pos.CENTER);
+            //lbl.setAlignment(Pos.CENTER);
             datosVbox.getChildren().add(lbl);
             
             /*Agregando telefonos*/
@@ -134,7 +134,7 @@ public class FXMLPantallaVerController implements Initializable {
         //Titulo
         Label lbl = new Label("Sonido");
         lbl.setPrefWidth(300);
-        lbl.setAlignment(Pos.CENTER);
+        //lbl.setAlignment(Pos.CENTER);
         datosVbox.getChildren().add(lbl);
         
         //Contenedor
@@ -161,7 +161,7 @@ public class FXMLPantallaVerController implements Initializable {
         if (!contacto.getDireccionFisica().equals("")) {
             //Agregar direccion fisica
             
-            HBox direcFisicaHbox = new HBox(25);
+            
             
             Label direcFisicaLabel = new Label("Dirección física: ");
             
@@ -174,42 +174,117 @@ public class FXMLPantallaVerController implements Initializable {
         
         if (!contacto.getLugarTrabajo().equals("")) {
             //Agregar lugar de trbajo
+            
+            Label lugarTrabajoLabel = new Label("Lugar de trabajo: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getLugarTrabajo());
+            
+            datosVbox.getChildren().addAll(lugarTrabajoLabel, txtArea);
         }
         
         if (!contacto.getLugarEstudio().equals("")) {
             //Agregar lugar de estudio
+            
+            Label lugarEstudioLabel = new Label("Lugar de estudio: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getLugarEstudio());
+            
+            datosVbox.getChildren().addAll(lugarEstudioLabel, txtArea);
         }
         
         if (!contacto.getNotas().equals("")) {
             //Agregar notas
+            Label lbl_titulo = new Label("Notas: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getNotas());
+            
+            datosVbox.getChildren().addAll(lbl_titulo, txtArea);
         }
         
         if (!contacto.getAcercaFamilia().equals("")) {
             //Agregar acerca de familia
+            Label lbl_titulo = new Label("Acerca de familia: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getAcercaFamilia());
+            
+            datosVbox.getChildren().addAll(lbl_titulo, txtArea);
         }
         
         if (!contacto.getProfesion().equals("")) {
             //Agregar profesion
+            HBox contenedor = new HBox(25);
+            Label lbl_titulo = new Label("Profesión: ");
+            
+            Label profesion = new Label(contacto.getProfesion());
+            
+            contenedor.getChildren().addAll(lbl_titulo, profesion);
+            
+            datosVbox.getChildren().addAll(contenedor);
         }
         
         if (!contacto.getFechaCumpleanios().equals("")) {
             //Agregar fecha de cumpleanios
+            HBox contenedor = new HBox(25);
+            Label lbl_titulo = new Label("Cumpleaños: ");
+            
+            Label cumpleanios = new Label(contacto.getFechaCumpleanios());
+            
+            contenedor.getChildren().addAll(lbl_titulo, cumpleanios);
+            
+            datosVbox.getChildren().addAll(contenedor);
         }
         
         if (!contacto.getFechaAniversario().equals("")) {
             //Agregar aniversario
+            HBox contenedor = new HBox(25);
+            Label lbl_titulo = new Label("Aniversario: ");
+            
+            Label aniversario = new Label(contacto.getFechaAniversario());
+            
+            contenedor.getChildren().addAll(lbl_titulo, aniversario);
+            
+            datosVbox.getChildren().addAll(contenedor);
         }
         
         if (!contacto.getDireccionTrabajo().equals("")) {
             //Agregar direccion de trabajo
+            Label lbl_titulo = new Label("Dirección de trabajo: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getDireccionTrabajo());
+            
+            datosVbox.getChildren().addAll(lbl_titulo, txtArea);
         }
         
         if (!contacto.getEntretenimiento().equals("")) {
             //Agregar entretenimiento
+            Label lbl_titulo = new Label("Entretenimiento: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getEntretenimiento());
+            
+            datosVbox.getChildren().addAll(lbl_titulo, txtArea);
         }
         
         if (!contacto.getDeportes().equals("")) {
             //Agregar deportes
+            Label lbl_titulo = new Label("Deportes: ");
+            
+            JFXTextArea txtArea = new JFXTextArea();
+            txtArea.setEditable(false);
+            txtArea.setText(contacto.getDeportes());
+            
+            datosVbox.getChildren().addAll(lbl_titulo, txtArea);
         }
         
     }
@@ -221,13 +296,13 @@ public class FXMLPantallaVerController implements Initializable {
     }
 
     @FXML
-    private void cambiarPantalla_a_principal(ActionEvent event) {
-        Stage stage = (Stage) imageView.getScene().getWindow();
+    private void irPantalla_a_principal() {
+        Stage stage = (Stage) imageView2.getScene().getWindow();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaPrincipal.fxml"));
             stage.setScene(new Scene(root));
         } catch (IOException ex) {
-            Logger.getLogger(FXMLPantallaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(FXMLPantallaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

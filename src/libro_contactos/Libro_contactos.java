@@ -22,7 +22,6 @@ public class Libro_contactos extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
-        //Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaPrincipal.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("FXMLPantallaPrincipal.fxml"));
         
         Scene scene = new Scene(root);

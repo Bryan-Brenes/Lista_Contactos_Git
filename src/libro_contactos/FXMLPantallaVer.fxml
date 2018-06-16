@@ -28,7 +28,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <JFXButton fx:id="atras_btn" buttonType="RAISED" layoutX="41.0" layoutY="68.0" onAction="#cambiarPantalla_a_principal" prefHeight="41.0" prefWidth="16.0">
+      <JFXButton fx:id="atras_btn" buttonType="RAISED" layoutX="41.0" layoutY="68.0" onAction="#irPantalla_a_principal" prefHeight="41.0" prefWidth="16.0">
          <graphic>
             <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="40" />
          </graphic>
