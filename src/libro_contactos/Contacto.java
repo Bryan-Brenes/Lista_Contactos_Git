@@ -5,6 +5,7 @@
  */
 package libro_contactos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import javafx.scene.image.Image;
@@ -14,7 +15,7 @@ import javafx.scene.image.ImageView;
  *
  * @author bryan
  */
-public class Contacto {
+public class Contacto implements Serializable{
     private String nombre;
     private ImageView imagen;
     private ArrayList<String[]> telefonos;

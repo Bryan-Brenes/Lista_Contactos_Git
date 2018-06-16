@@ -5,13 +5,14 @@
  */
 package libro_contactos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author bryan
  */
-public class Contactos_singleton {
+public class Contactos_singleton implements Serializable {
     
     private ArrayList<Contacto> listaContactos;
     
@@ -30,6 +31,10 @@ public class Contactos_singleton {
 
     public ArrayList<Contacto> getListaContactos() {
         return listaContactos;
+    }
+    
+    public void setListaContactos(ArrayList<Contacto> lista){
+        this.listaContactos = lista;
     }
 
     public void agregarContacto(Contacto contacto, int indice) {
