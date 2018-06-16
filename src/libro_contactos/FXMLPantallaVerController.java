@@ -11,12 +11,14 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +38,7 @@ import javafx.scene.layout.HBox;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -79,7 +82,17 @@ public class FXMLPantallaVerController implements Initializable {
     
     public void inicializarInfoUsuario(){
         
-        imageView2.setImage(contacto.getImagen().getImage());
+        Image image;
+        
+        try{
+            File file = new File(contacto.getImagenURL());
+            BufferedImage bufferedImage = ImageIO.read(file);
+            image = SwingFXUtils.toFXImage(bufferedImage, null);
+            Image imagen = image;
+            imageView2.setImage(image);
+            }catch(IOException e){
+                System.out.println(e);
+            }
         
         HBox NombreHbox = new HBox(25);
         NombreHbox.setPadding(new Insets(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE, 15));

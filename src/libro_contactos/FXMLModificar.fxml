@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="575.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="libro_contactos.FXMLModificarController">
+   <children>
+      <MenuBar fx:id="menubar" prefHeight="29.0" prefWidth="580.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="_Menú">
+               <items>
+                  <MenuItem fx:id="salir_btn" mnemonicParsing="false" onAction="#salir" text="Salir" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="_Ayuda">
+               <items>
+                  <MenuItem fx:id="acercaDe_btn" mnemonicParsing="false" text="Acerca de..." />
+                  <MenuItem fx:id="manual_btn" mnemonicParsing="false" text="Manual de usuario..." />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <JFXButton fx:id="atras_btn" buttonType="RAISED" layoutX="51.0" layoutY="78.0" onAction="#irPantalla_a_principal" prefHeight="41.0" prefWidth="16.0">
+         <graphic>
+            <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="40" />
+         </graphic>
+      </JFXButton>
+      <ImageView fx:id="imageView2" fitHeight="119.0" fitWidth="118.0" layoutX="249.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@user512.png" />
+         </image>
+      </ImageView>
+      <ScrollPane hbarPolicy="NEVER" layoutX="139.0" layoutY="239.0" prefHeight="354.0" prefWidth="338.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="datosVbox" prefHeight="434.0" prefWidth="338.0" spacing="25.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
